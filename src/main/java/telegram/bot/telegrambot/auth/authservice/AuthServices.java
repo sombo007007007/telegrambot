@@ -1,8 +1,7 @@
 package telegram.bot.telegrambot.auth.authservice;
 
-import org.springframework.stereotype.Service;
+import telegram.bot.telegrambot.auth.model.Auths;
 
-@Service
 public interface AuthServices {
-
+    void addNewAuth (Auths auths);
 }
