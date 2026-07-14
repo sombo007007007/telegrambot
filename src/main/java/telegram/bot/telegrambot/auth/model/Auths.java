@@ -5,8 +5,10 @@ package telegram.bot.telegrambot.auth.model;
 import java.time.LocalDateTime;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Auths {
 
 private Long id;
