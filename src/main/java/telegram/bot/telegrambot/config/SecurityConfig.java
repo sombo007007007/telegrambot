@@ -2,6 +2,7 @@ package telegram.bot.telegrambot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,26 +12,39 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    BCryptPasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
             .csrf(csrf -> csrf.disable())
+
             .authorizeHttpRequests(auth -> auth
+
                 .requestMatchers(
-                    "/auth_register",
-                    "/index_auth",
-                    "/v3/api-docs/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html"
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**"
                 ).permitAll()
+
+                .requestMatchers(HttpMethod.GET,
+                        "/index_auth",
+                        "/index_category")
+                .permitAll()
+
+                .requestMatchers(HttpMethod.POST,
+                        "/auth_register",
+                        "/store_category")
+                .permitAll()
+
                 .anyRequest().authenticated()
             )
+
             .httpBasic(Customizer.withDefaults())
+
             .formLogin(form -> form.disable());
 
         return http.build();
