@@ -32,13 +32,22 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.GET,
                         "/index_auth",
-                        "/index_category")
+                        "/index_category",
+                        "{id}/edits",
+                        "/update")
                 .permitAll()
 
                 .requestMatchers(HttpMethod.POST,
                         "/auth_register",
                         "/store_category")
                 .permitAll()
+                .requestMatchers(HttpMethod.PUT,
+                    "/update"
+                ).permitAll()
+                
+                .requestMatchers(HttpMethod.DELETE,
+                    "{id}/delete"
+                ).permitAll()
 
                 .anyRequest().authenticated()
             )
