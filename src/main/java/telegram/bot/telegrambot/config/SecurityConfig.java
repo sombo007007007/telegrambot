@@ -32,6 +32,7 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.GET,
                         "/index_auth",
+                        "/v1/product",
                         "/index_category",
                         "{id}/edits",
                         "/update")
@@ -39,7 +40,8 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.POST,
                         "/auth_register",
-                        "/store_category")
+                        "/store_category",
+                        "/v1/product")
                 .permitAll()
                 .requestMatchers(HttpMethod.PUT,
                     "/update"
